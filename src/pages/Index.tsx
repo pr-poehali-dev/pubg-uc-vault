@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 
 const ucPackages = [
@@ -28,6 +31,22 @@ const paymentMethods = [
 
 const Index = () => {
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+  const [orderedPackage, setOrderedPackage] = useState<typeof ucPackages[0] | null>(null);
+  const [playerId, setPlayerId] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleBuyClick = (pkg: typeof ucPackages[0]) => {
+    setOrderedPackage(pkg);
+    setIsOrderDialogOpen(true);
+  };
+
+  const handleOrderSubmit = () => {
+    alert(`Заказ оформлен! UC: ${orderedPackage?.amount}, ID: ${playerId}`);
+    setIsOrderDialogOpen(false);
+    setPlayerId('');
+    setEmail('');
+  };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -135,7 +154,13 @@ const Index = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full bg-primary hover:bg-primary/90">
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBuyClick(pkg);
+                    }}
+                  >
                     <Icon name="ShoppingBag" size={20} className="mr-2" />
                     Купить
                   </Button>
@@ -278,6 +303,63 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">Оформление заказа</DialogTitle>
+            <DialogDescription>
+              Заполните данные для получения UC
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 py-4">
+            <div className="flex items-center gap-4 p-4 bg-gradient-pubg rounded-lg">
+              <Icon name="Coins" size={48} className="text-primary" />
+              <div>
+                <div className="text-2xl font-bold">{orderedPackage?.amount} UC</div>
+                <div className="text-xl text-primary font-bold">{orderedPackage?.price} ₽</div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="playerId" className="text-base">Игровой ID PUBG *</Label>
+                <Input
+                  id="playerId"
+                  placeholder="Введите ваш ID"
+                  value={playerId}
+                  onChange={(e) => setPlayerId(e.target.value)}
+                  className="mt-2"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Найдите в игре: Профиль → ID игрока
+                </p>
+              </div>
+              <div>
+                <Label htmlFor="email" className="text-base">Email для чека *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="example@mail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+            </div>
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90 text-lg py-6"
+              onClick={handleOrderSubmit}
+              disabled={!playerId || !email}
+            >
+              <Icon name="CreditCard" size={20} className="mr-2" />
+              Перейти к оплате {orderedPackage?.price} ₽
+            </Button>
+            <p className="text-xs text-center text-muted-foreground">
+              После оплаты UC будет зачислен на ваш аккаунт в течение 1-10 минут
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
