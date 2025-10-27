@@ -41,11 +41,32 @@ const Index = () => {
     setIsOrderDialogOpen(true);
   };
 
-  const handleOrderSubmit = () => {
-    alert(`Заказ оформлен! UC: ${orderedPackage?.amount}, ID: ${playerId}`);
-    setIsOrderDialogOpen(false);
-    setPlayerId('');
-    setEmail('');
+  const handleOrderSubmit = async () => {
+    if (!orderedPackage || !playerId || !email) return;
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/f73f95da-23b2-4773-a778-6a3a2a76400a', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          package_id: orderedPackage.id,
+          player_id: playerId,
+          email: email,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.payment_url) {
+        window.location.href = data.payment_url;
+      } else {
+        alert('Ошибка создания заказа: ' + (data.error || 'Неизвестная ошибка'));
+      }
+    } catch (error) {
+      alert('Ошибка соединения с сервером');
+    }
   };
 
   const scrollToSection = (id: string) => {

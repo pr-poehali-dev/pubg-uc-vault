@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "Test OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Test webhook notification",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "event": "payment.succeeded",
+        "object": {
+          "id": "test123",
+          "status": "succeeded",
+          "metadata": {
+            "order_id": "test-order-123"
+          }
+        }
+      },
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}
