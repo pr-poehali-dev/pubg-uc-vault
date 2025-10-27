@@ -333,7 +333,7 @@ const Index = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Получатель</p>
-                    <p className="font-semibold text-lg">ИП Иванов Иван Иванович</p>
+                    <p className="font-semibold text-lg">SKYE_UC_SHOP</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">ИНН</p>
