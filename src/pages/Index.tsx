@@ -299,26 +299,69 @@ const Index = () => {
             <h2 className="text-4xl font-bold mb-4">Контакты</h2>
             <p className="text-muted-foreground text-lg">Мы всегда на связи</p>
           </div>
-          <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="text-center">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="text-center">
+                <CardHeader>
+                  <Icon name="MessageCircle" size={40} className="mx-auto mb-2 text-primary" />
+                  <CardTitle className="text-lg">Telegram</CardTitle>
+                  <CardDescription>@pubg_uc_shop</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center">
+                <CardHeader>
+                  <Icon name="Mail" size={40} className="mx-auto mb-2 text-primary" />
+                  <CardTitle className="text-lg">Email</CardTitle>
+                  <CardDescription>support@pubguc.shop</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center">
+                <CardHeader>
+                  <Icon name="Phone" size={40} className="mx-auto mb-2 text-primary" />
+                  <CardTitle className="text-lg">WhatsApp</CardTitle>
+                  <CardDescription>+7 (999) 123-45-67</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+            
+            <Card className="bg-gradient-pubg">
               <CardHeader>
-                <Icon name="MessageCircle" size={40} className="mx-auto mb-2 text-primary" />
-                <CardTitle className="text-lg">Telegram</CardTitle>
-                <CardDescription>@pubg_uc_shop</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <Icon name="Mail" size={40} className="mx-auto mb-2 text-primary" />
-                <CardTitle className="text-lg">Email</CardTitle>
-                <CardDescription>support@pubguc.shop</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <Icon name="Phone" size={40} className="mx-auto mb-2 text-primary" />
-                <CardTitle className="text-lg">WhatsApp</CardTitle>
-                <CardDescription>+7 (999) 123-45-67</CardDescription>
+                <div className="flex items-center gap-3 mb-4">
+                  <Icon name="Building" size={32} className="text-primary" />
+                  <CardTitle className="text-2xl">Банковские реквизиты для прямого перевода</CardTitle>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Получатель</p>
+                    <p className="font-semibold text-lg">ИП Иванов Иван Иванович</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">ИНН</p>
+                    <p className="font-semibold text-lg">123456789012</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Расчётный счёт</p>
+                    <p className="font-semibold text-lg">40817810099910004312</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">БИК банка</p>
+                    <p className="font-semibold text-lg">044525225</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Банк</p>
+                    <p className="font-semibold text-lg">ПАО СБЕРБАНК</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Номер карты</p>
+                    <p className="font-semibold text-lg">2202 2006 1234 5678</p>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-background/50 rounded-lg">
+                  <p className="text-sm text-muted-foreground">
+                    <Icon name="Info" size={16} className="inline mr-2" />
+                    При переводе укажите в комментарии ваш игровой ID и количество UC
+                  </p>
+                </div>
               </CardHeader>
             </Card>
           </div>
